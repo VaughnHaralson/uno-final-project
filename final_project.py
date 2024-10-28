@@ -22,10 +22,7 @@ def initialize_deck(deck): #Shyam
     for y in range(8):
         player_deck.append(random.choice(deck))
     return [computer_deck, player_deck]
-print("Computer Deck:")
-print(initialize_deck(build_deck())[0])
-print("Player Deck:")
-print(initialize_deck(build_deck())[1])
+
 def skip(number_1,turn):
   if (number_1 == "Skip"): #Kalidas
     if(turn%2==0):
@@ -35,13 +32,18 @@ def skip(number_1,turn):
     return turn
   else:
     return ""
+
+def draw(x):
+  deck = build_deck()
+  x.append(random.choice(deck))
+  
 def valid_move(chosencard,topcard): #Vaughn
   if chosencard(0)==topcard(0) or chosencard(1)==topcard(1):
     return True
   else:
     return False
-def draw_card(computer_deck,player_Deck):
-def playerturn(player_deck,topcard): #Vaughn
+
+def playerturn(player_deck,topcard):#Vaughn
   x=int(input("Select a card: "))-1
   chosencard=player_deck(x)
   if valid_move(chosencard, topcard)==True:
@@ -51,7 +53,8 @@ def playerturn(player_deck,topcard): #Vaughn
   else:
     print("Invalid Move.")
     return playerturn(player_deck,topcard)
-def computerturn(computer_deck, topcard):
+
+def computerturn(computer_deck, topcard, turn):
   x=1
   for card in computer_deck:
     if valid_move(card, topcard)==True:
@@ -60,11 +63,19 @@ def computerturn(computer_deck, topcard):
       turn=turn+1
       print("Top Card is ",topcard)
     else:
-      if x>0:
-        continue
-      else:
+      if x==0:
         draw(computer_deck)
-        return computerturn(computer_deck, topcard)
+def play():
+  computer_deck = initialize_deck(build_deck())[0]
+  player_deck = initialize_deck(build_deck())[1]
+  top_card = initialize_deck(build_deck())[2]
+  print("Computer Deck:" + "\n" + str(computer_deck) + "\n" "Player Deck:" + "\n" + str(player_deck) + "\n" + top_card)
+  playerturn()
+
+
+print(play())
+
+
 #GAME PROCESS SUDO CODE - Kalidas
 #initalize the deck
 #pick out a random card from the main deck
@@ -76,4 +87,7 @@ def computerturn(computer_deck, topcard):
 #Once the index of the input is entered, it checks if the move is valid
 #if it is valid it updates the top card from the previous card to the new card
 #otherwise it says invalid move and asks the user again
-#the game keeps going until one person wins 
+#the game keeps going until one person wins
+
+
+
